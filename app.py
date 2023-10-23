@@ -47,10 +47,10 @@ AZURE_SEARCH_PERMITTED_GROUPS_COLUMN = os.environ.get("AZURE_SEARCH_PERMITTED_GR
 AZURE_SEARCH_STRICTNESS = os.environ.get("AZURE_SEARCH_STRICTNESS", 3)
 
 # AOAI Integration Settings
-AZURE_OPENAI_RESOURCE = os.environ.get("AZURE_OPENAI_RESOURCE", "azopenaiuvatest")
-AZURE_OPENAI_MODEL = os.environ.get("AZURE_OPENAI_MODEL", "tzchatgpt")
-AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT", "https://azopenaiuvatest.openai.azure.com/")
-AZURE_OPENAI_KEY = os.environ.get("AZURE_OPENAI_KEY", "c3195ee155e24848aba9315073ecbeeb")
+AZURE_OPENAI_RESOURCE = os.environ.get("AZURE_OPENAI_RESOURCE", "aoi-ei-gpt-dev-eu-1")
+AZURE_OPENAI_MODEL = os.environ.get("AZURE_OPENAI_MODEL", "gpt-35-turbo")
+AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT", "https://apim-ei-gpt-dev-eu2-1.azure-api.net/uvaopenai/")
+AZURE_OPENAI_KEY = os.environ.get("AZURE_OPENAI_KEY", "6acc1183ab12")
 AZURE_OPENAI_TEMPERATURE = os.environ.get("AZURE_OPENAI_TEMPERATURE", 0)
 AZURE_OPENAI_TOP_P = os.environ.get("AZURE_OPENAI_TOP_P", 1.0)
 AZURE_OPENAI_MAX_TOKENS = os.environ.get("AZURE_OPENAI_MAX_TOKENS", 1000)
@@ -63,20 +63,25 @@ AZURE_OPENAI_EMBEDDING_ENDPOINT = os.environ.get("AZURE_OPENAI_EMBEDDING_ENDPOIN
 AZURE_OPENAI_EMBEDDING_KEY = os.environ.get("AZURE_OPENAI_EMBEDDING_KEY")
 
 
+
 SHOULD_STREAM = True if AZURE_OPENAI_STREAM.lower() == "true" else False
 
 # CosmosDB Integration Settings
-AZURE_COSMOSDB_DATABASE = os.environ.get("AZURE_COSMOSDB_DATABASE")
-AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT")
-AZURE_COSMOSDB_CONVERSATIONS_CONTAINER = os.environ.get("AZURE_COSMOSDB_CONVERSATIONS_CONTAINER")
-AZURE_COSMOSDB_ACCOUNT_KEY = os.environ.get("AZURE_COSMOSDB_ACCOUNT_KEY")
+AZURE_COSMOSDB_DATABASE = os.environ.get("AZURE_COSMOSDB_DATABASE", "db_conversation_history")
+#AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT", "db-5774c92b-d0d2-583f-96ce-26c5b6a6e9b3")
+#AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT")
+#AZURE_COSMOSDB_CONVERSATIONS_CONTAINER = os.environ.get("AZURE_COSMOSDB_CONVERSATIONS_CONTAINER")
+#AZURE_COSMOSDB_ACCOUNT_KEY =os.environ.get("AZURE_COSMOSDB_ACCOUNT_KEY")  
+AZURE_COSMOSDB_ACCOUNT = os.environ.get("AZURE_COSMOSDB_ACCOUNT", "cosmos-ei-gpt-dev-eu2-1")
+AZURE_COSMOSDB_CONVERSATIONS_CONTAINER = os.environ.get("AZURE_COSMOSDB_CONVERSATIONS_CONTAINER","conversations")
+AZURE_COSMOSDB_ACCOUNT_KEY =os.environ.get("AZURE_COSMOSDB_ACCOUNT_KEY", "U5TaPgAL3epUGDXdTlcOyV6FZlKeYFWpHZcxfF0LmEiGq2jsyurl42IRE50BKwdrMXCDZbYEVqOyACDbMC12LQ==")
 
 # Initialize a CosmosDB client with AAD auth and containers
 cosmos_conversation_client = None
 if AZURE_COSMOSDB_DATABASE and AZURE_COSMOSDB_ACCOUNT and AZURE_COSMOSDB_CONVERSATIONS_CONTAINER:
     try :
-        cosmos_endpoint = f'https://{AZURE_COSMOSDB_ACCOUNT}.documents.azure.com:443/'
-
+        #cosmos_endpoint = f'https://{AZURE_COSMOSDB_ACCOUNT}.documents.azure.com:443/'
+        cosmos_endpoint = f'https://cosmos-ei-gpt-dev-eu2-1.documents.azure.com:443/'
         if not AZURE_COSMOSDB_ACCOUNT_KEY:
             credential = DefaultAzureCredential()
         else:
